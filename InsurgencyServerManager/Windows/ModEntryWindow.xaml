@@ -1,0 +1,62 @@
+﻿<Window x:Class="InsurgencyServerManager.Windows.ModEntryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:viewModels="clr-namespace:InsurgencyServerManager.ViewModels"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance viewModels:ModEntryWindowViewModel}"
+        MinHeight="250" MinWidth="400"
+        Height="250" Width="400">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Margin" Value="0 5"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Margin" Value="0 5"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" Content="Aktiv:" />
+        <CheckBox Grid.Column="1" Grid.Row="0" IsChecked="{Binding Path=Active}" VerticalAlignment="Center" />
+
+        <Label Grid.Column="0" Grid.Row="1" Content="ID:" />
+        <TextBox Grid.Column="1" Grid.Row="1" PreviewTextInput="ValidateModId" Text="{Binding Path=Id}" VerticalAlignment="Center" />
+
+        <Label Grid.Column="0" Grid.Row="2" Content="Name:" />
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Name}" VerticalAlignment="Center" />
+
+        <Label Grid.Column="0" Grid.Row="3" Content="Link:" />
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=Link}" VerticalAlignment="Center" />
+
+        <Label Grid.Column="0" Grid.Row="4" Content="Type:" />
+        <ComboBox Grid.Column="1" Grid.Row="4" ItemsSource="{Binding ModTypes}"
+                  DisplayMemberPath="DisplayName"
+                  SelectedValuePath="Value" />
+
+        <Button Grid.Column="1" Grid.Row="5"
+                VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="Save"
+                Command="{Binding SaveCommand}"
+                CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource Self}}" />
+    </Grid>
+</Window>
